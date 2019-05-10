@@ -2,59 +2,27 @@
 
 import {bookContent} from "./bookContent.js";
 
-let currentBookText;
-let nextIndex = 0;
-let textLineArray;
-let bookName;
-let bookAge;
-
 function resetTextLines() {
-    textLineArray = currentBookText.split('\n');
+    this.textLineArray = this.currentBookText.split('\n');
 }
 
 function replaceDynamicParameters() {
-    currentBookText = currentBookText.replace(/Soapy/g, bookName);
-    currentBookText = currentBookText.replace('19', bookAge);
+    this.currentBookText = this.currentBookText.replace(/Soapy/g, this.bookName);
+    this.currentBookText = this.currentBookText.replace('19', this.bookAge);
 }
 
 export class Book {
-    constructor({ name = 'Billy', age = '20' }) {
-        currentBookText = bookContent;
-        bookName = name;
-        bookAge = age;
+    constructor({ name = 'Billy', age = '20' } = {}) {
+        this.currentBookText = bookContent;
+        this.bookName = name;
+        this.bookAge = age;
 
-        replaceDynamicParameters();
-        resetTextLines();
-    }
-
-    set bookText(value) {
-        if(currentBookText !== value) {
-            currentBookText = value;
-
-            replaceDynamicParameters();
-            resetTextLines();
-        }
-    }
-
-    get bookText() {
-        return currentBookText;
+        replaceDynamicParameters.call(this);
+        resetTextLines.call(this);
     }
 
     readBook() {
-        return currentBookText;
-    }
-
-    [Symbol.iterator]() {
-        return this;
-    }
-
-    next() {
-        if(nextIndex < textLineArray.length ) {
-            return {value: textLineArray[nextIndex++], done: false};
-        }else {
-            nextIndex = 0;
-            return {done: true};
-        }
+        return this.currentBookText;
     }
 }
 

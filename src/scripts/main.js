@@ -1,39 +1,25 @@
 'use strict';
 
-import {Book} from "./book.js";
+import {BookShelf} from "./bookShelf.js";
 
-const showDescriptionButton = document.getElementById('showDescriptionButton');
-const readBookButton = document.getElementById('readBookButton');
+const readBooksGeneratorButton = document.getElementById('readBooksGeneratorButton');
 
-let myBook;
+let bookShelf;
 
 function init() {
-    const bookParameters = {
-        name: 'Pol',
-        age: '21'
-    };
+    bookShelf = new BookShelf();
 
-    myBook = new Book(bookParameters);
-
-    showDescriptionButton.addEventListener('click', showDescription);
-    readBookButton.addEventListener('click', readBook);
+    readBooksGeneratorButton.addEventListener('click', readBooksGenerator);
 }
 
-function read() {
-    for (let line of myBook) {
-        alert(line);
+
+function readBooksGenerator() {
+    let bookGenerator = bookShelf.read();
+
+    for(let book of bookGenerator) {
+        alert(book.readBook());
     }
 }
-
-function showDescription() {
-   read();
-}
-
-function readBook() {
-    myBook.bookText = 'New book text';
-    read();
-}
-
 
 
 init();
