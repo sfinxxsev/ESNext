@@ -6,7 +6,7 @@ let currentBookText;
 let nextIndex = 0;
 let textLineArray;
 let bookName;
-let boookAge;
+let bookAge;
 
 function resetTextLines() {
     textLineArray = currentBookText.split('\n');
@@ -14,14 +14,14 @@ function resetTextLines() {
 
 function replaceDynamicParameters() {
     currentBookText = currentBookText.replace(/Soapy/g, bookName);
-    currentBookText = currentBookText.replace('19', boookAge);
+    currentBookText = currentBookText.replace('19', bookAge);
 }
 
 export class Book {
     constructor({ name = 'Billy', age = '20' }) {
         currentBookText = bookContent;
         bookName = name;
-        boookAge = age;
+        bookAge = age;
 
         replaceDynamicParameters();
         resetTextLines();
