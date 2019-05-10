@@ -9,8 +9,8 @@ let myBook;
 
 function init() {
     const bookParameters = {
-        name: 'Soapy’s Choice',
-        year: '1995'
+        name: 'Pol',
+        age: '21'
     };
 
     myBook = new Book(bookParameters);
@@ -19,15 +19,19 @@ function init() {
     readBookButton.addEventListener('click', readBook);
 }
 
-function showDescription() {
-    //alert(myBook.shortBookDescription);
+function read() {
     for (let line of myBook) {
         alert(line);
     }
 }
 
+function showDescription() {
+   read();
+}
+
 function readBook() {
-    alert(myBook.readBook());
+    myBook.bookText = 'New book text';
+    read();
 }
 
 

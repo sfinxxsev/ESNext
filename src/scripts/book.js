@@ -1,17 +1,39 @@
 'use strict';
 
-import {bookText} from "./bookText.js";
+import {bookContent} from "./bookContent.js";
 
 let currentBookText;
+let nextIndex = 0;
+let textLineArray;
+let bookName;
+let boookAge;
+
+function resetTextLines() {
+    textLineArray = currentBookText.split('\n');
+}
+
+function replaceDynamicParameters() {
+    currentBookText = currentBookText.replace(/Soapy/g, bookName);
+    currentBookText = currentBookText.replace('19', boookAge);
+}
 
 export class Book {
-    constructor({ name = 'Sample book name', age = 'some age' }) {
-        currentBookText = bookText;
-        currentBookText.replace('Soapy', '${name}');
+    constructor({ name = 'Billy', age = '20' }) {
+        currentBookText = bookContent;
+        bookName = name;
+        boookAge = age;
+
+        replaceDynamicParameters();
+        resetTextLines();
     }
 
     set bookText(value) {
-        currentBookText = value;
+        if(currentBookText !== value) {
+            currentBookText = value;
+
+            replaceDynamicParameters();
+            resetTextLines();
+        }
     }
 
     get bookText() {
@@ -27,27 +49,11 @@ export class Book {
     }
 
     next() {
-        let iterator = 0;
-        const textLineArray = currentBookText.split('\n');
-        const linesCount = textLineArray.length;
-        if (this.currentItem === undefined) {
-            // инициализация состояния итерации
-            this.currentItem = textLineArray[iterator];
-        }
-
-        if (iterator <= linesCount) {
-            this.currentItem = textLineArray[iterator];
-            iterator++;
-            return {
-                done: false,
-                value: this.currentItem
-            };
-        } else {
-            // очистка текущей итерации
-            delete this.currentItem;
-            return {
-                done: true
-            };
+        if(nextIndex < textLineArray.length ) {
+            return {value: textLineArray[nextIndex++], done: false};
+        }else {
+            nextIndex = 0;
+            return {done: true};
         }
     }
 }

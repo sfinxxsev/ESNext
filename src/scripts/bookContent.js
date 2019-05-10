@@ -1,7 +1,8 @@
 'use strict';
 
-export const bookText =
-    `Soapy sat on a seat in Madison Square, New York, and looked up at the sky. A dead leaf fell onto his arm.
+export const bookContent =
+    `His name was Soapy and he was 19 years old.
+    Soapy sat on a seat in Madison Square, New York, and looked up at the sky. A dead leaf fell onto his arm.
     Winter was coming, and Soapy knew that he must make his plans. He moved unhappily on his seat. He wanted three
     months in a nice, warm prison, with food and good friends. This was how he usually spent his winters. And now it
     was time, because, at night on his seat in the square, three newspapers did not keep out the cold.
