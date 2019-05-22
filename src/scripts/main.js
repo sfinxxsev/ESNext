@@ -12,52 +12,34 @@ function init() {
     startButton.addEventListener('click', startRequestsChain);
 }
 
-async function getAllPeopleList() {
+async function startRequestsChain() {
     const peopleJson = await xmlRequester.get('https://swapi.co/api/people');
-    const people = JSON.parse(peopleJson).results.map(function ({ name }) {
+    const people = JSON.parse(peopleJson).results.map(({ name }) => {
         return name;
     });
 
-    alert(people);
-}
+    alert('1) ' + people);
 
-async function getSomePeople() {
     const somePeople = await Promise.all([
         xmlRequester.get('https://swapi.co/api/people/1/'),
         xmlRequester.get('https://swapi.co/api/people/3/'),
         xmlRequester.get('https://swapi.co/api/people/5/')
-        ]);
+    ]);
 
-    let people = [];
+    let peopleList = [];
 
     somePeople.forEach(function (item) {
-       people.push(JSON.parse(item).name);
+        peopleList.push(JSON.parse(item).name);
     });
 
-    alert(people);
-}
+    alert('2) ' + peopleList);
 
-function startRequestsChain() {
-    const allPeopleList = getAllPeopleList();
-    allPeopleList.then(function () {
-        getSomePeople().then(function () {
-            async function getPlanet() {
-                const planet = await xmlRequester.get('https://swapi.co/api/planets/1/');
+    const planetJson = await xmlRequester.get('https://swapi.co/api/planets/1/');
+    const planet = JSON.parse(planetJson);
 
-                return JSON.parse(planet);
-            }
+    const filmJson = await xmlRequester.get(planet.films[0]);
 
-            getPlanet().then(function (planet) {
-                async function getFirstResident(planet) {
-                    const filmJson = await xmlRequester.get(planet.films[0]);
-
-                    alert(`Planet "${planet.name}" was represented in film "${JSON.parse(filmJson).title}"`);
-                }
-
-                getFirstResident(planet);
-            })
-        });
-    });
+    alert(`3) Planet "${planet.name}" was represented in film "${JSON.parse(filmJson).title}"`);
 }
 
 
