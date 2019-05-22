@@ -2,7 +2,6 @@
 
 import {Book} from "./book.js";
 
-const showDescriptionButton = document.getElementById('showDescriptionButton');
 const readBookButton = document.getElementById('readBookButton');
 
 let myBook;
@@ -15,8 +14,7 @@ function init() {
 
     myBook = new Book(bookParameters);
 
-    showDescriptionButton.addEventListener('click', showDescription);
-    readBookButton.addEventListener('click', readBook);
+    readBookButton.addEventListener('click', showDescription);
 }
 
 function read() {
@@ -28,12 +26,6 @@ function read() {
 function showDescription() {
    read();
 }
-
-function readBook() {
-    myBook.bookText = 'New book text';
-    read();
-}
-
 
 
 init();
