@@ -9,7 +9,7 @@ export class XMLHTTPRequestor {
 
     executeRequest(requestOptions) {
         requestOptions.headers = this.requestHeaders;
-        return new Promise(function (resolve, reject) {
+        return new Promise((resolve, reject) => {
              const xhr = new XMLHttpRequest();
             xhr.open(requestOptions.method, requestOptions.url);
             xhr.onload = function () {
@@ -29,14 +29,14 @@ export class XMLHTTPRequestor {
                 });
             };
             if (requestOptions.headers) {
-                Object.keys(requestOptions.headers).forEach(function (key) {
+                Object.keys(requestOptions.headers).forEach((key) => {
                     xhr.setRequestHeader(key, requestOptions.headers[key]);
                 });
             }
 
             let parameters = requestOptions.params;
             if (parameters && typeof parameters === 'object') {
-                parameters = Object.keys(parameters).map(function (key) {
+                parameters = Object.keys(parameters).map((key) => {
                     return encodeURIComponent(key) + '=' + encodeURIComponent(parameters[key]);
                 }).join('&');
             }

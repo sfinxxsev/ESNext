@@ -28,7 +28,7 @@ async function startRequestsChain() {
 
     let peopleList = [];
 
-    somePeople.forEach(function (item) {
+    somePeople.forEach((item) => {
         peopleList.push(JSON.parse(item).name);
     });
 
